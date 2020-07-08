@@ -11,7 +11,7 @@ function CompanyCard({name, handle, description, history }) {
           <p>The company's named {name}. The company {description}.</p>
           <p><Link to={`/companies/${handle}`}> See more about this company. </Link></p>
             </div >
-
+    );
 }
 
 export default CompanyCard;
