@@ -11,12 +11,14 @@ function App() {
     <div className="App">
       {/* <Routes /> */}
       <BrowserRouter>
-      <Route exact path="/companies/:handle">
-      <CompanyList />
+      {/* <Route exact path="/companies/:handle"> */}
+      <Route>
+        <CompanyList />
       </Route>
+      {/* {/* </Route>
       <Route exact path="/signup">
       <SignupForm />
-      </Route>
+      </Route> */}
       </BrowserRouter>
     </div>
   );

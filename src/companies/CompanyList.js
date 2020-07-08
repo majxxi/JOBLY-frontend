@@ -5,27 +5,37 @@ import JoblyApi from '../JoblyApi';
 
 function CompanyList() {
     const [companies, setCompanies] = useState([]);
+    console.log(companies)
 
     useEffect(function getCompanyListWhenMounted() {
         async function getCompanyList() {
-           const companyListResult = await JoblyApi.getCompany(`baker-santos`);
+           const companyListResult = await JoblyApi.getCompanies("and");
+           setCompanies(companyListResult)
            console.log(companyListResult);
       }
       getCompanyList();
-      });
+    }, []);
 
-    const companyLinks = Object.keys(companies).map(handle => (
-       <li key={handle}>
-           <Link to={`/companies/${handle}`}>{handle}</Link>
-       </li>
-    ));
+    const companyLinks = companies.map(company => (
+      <CompanyCard 
+        name={company.name}
+        handle={company.handle}
+        description={company.description}
+      />
+    ))
+
+    // const companyLinks = Object.keys(companies).map(handle => (
+    //    <li key={handle}>
+    //        <Link to={`/companies/${handle}`}>{handle}</Link>
+    //    </li>
+    // ));
 
     return (
         <div className="companyList">
             <header className="companyList-header">
                 <h1 className="companyList-title">These are companies with jobs.</h1>
                 <h1>
-                <Link to="/jobs">Look at jobs</Link>
+                {/* <Link to="/jobs">Look at jobs</Link> */}
                 </h1>
             </header>
             <div className="companyList-intro">

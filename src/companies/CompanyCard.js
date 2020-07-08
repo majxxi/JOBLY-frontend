@@ -9,7 +9,7 @@ function CompanyCard({name, handle, description, history }) {
     return (
         <div className="company">
             <p>The company's named {name}. The company {description}.</p>
-            <p><Link to="/companies">Look at other companies</Link></p>
+    <p><Link to={`/company/${handle}`}>{name}</Link></p>
         </div>
     )
 }

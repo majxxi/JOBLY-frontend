@@ -1,15 +1,14 @@
 import React from 'react';
 import axios from 'axios';
-const BASE_URL = 'localhost:3001';
+const BASE_URL = 'http://localhost:3001';
 
 class JoblyApi {
-  static async request(endpoint, params = {}, verb = ".get") {
+  static async request(endpoint, params = {}, verb = "get") {
     console.debug("API Call:", endpoint, params, verb);
 
-    const _token = ( // for now, hardcode token for "testing"
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc" +
-        "3RpbmciLCJpc19hZG1pbiI6ZmFsc2UsImlhdCI6MTU1MzcwMzE1M30." +
-        "COmFETEsTxN_VfIlgIKw0bYJLkvbRQNgO1XCSE8NZ0U");
+    const _token = (
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaXNfYWRtaW4iOmZhbHNlLCJpYXQiOjE1OTQxNDcyNTB9.0ox0D7fo3bssdOhwmfYXxqN_Wuiys8t80hcK4fpTfYA"
+    );
 
     const data = (verb === "get")
       ? { params: { _token, ...params } } // GET
@@ -31,6 +30,21 @@ class JoblyApi {
   static async getCompany(handle) {
     let res = await this.request(`companies/${handle}`);
     return res.company;
+  }
+
+  static async getCompanies(data){
+    let res = await this.request(`companies`, {data});
+    console.log(data);
+    return res.companies;
+  }
+
+  static async getJobs() {
+    let res = await this.request(`/jobs`);
+    return res.jobs;
+  }
+
+  static async login( ) {
+    let res = await this.request()
   }
 }
 
