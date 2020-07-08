@@ -1,4 +1,3 @@
-import React from 'react';
 import axios from 'axios';
 const BASE_URL = 'http://localhost:3001';
 
@@ -34,28 +33,36 @@ class JoblyApi {
 
   static async getCompanies(data){
     let res = await this.request(`companies`, {data});
-    console.log(data);
     return res.companies;
   }
 
-  static async getJobs() {
-    let res = await this.request(`/jobs`);
+  static async getJobs(data) {
+    let res = await this.request(`jobs`, {data});
+    console.log(data);
     return res.jobs;
   }
 
+  static async getUser(username) {
+    let res = await this.request(`users/${username}`);
+    return res.user;
+  }
+
   static async login(data) {
-    let res = await this.request("/login", data, "post");
+    let res = await this.request("login", data, "post");
     return res._token;
   }
 
   static async signup(data) {
-    let res = await this.request("/signup", data, "post");
+    let res = await this.request("signup", data, "post");
     return res._token;
   }
 
   static async edit(data) {
-    let res = await this.request("/profile", data, "patch");
+    let res = await this.request("profile", data, "patch");
     return res._token;
+  }
+
+  
 }
 
 export default JoblyApi;

@@ -1,14 +1,29 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import JobCard from "./JobCard"
 import { Link } from 'react-router-dom';
+import JoblyApi from '../JoblyApi';
 
 function JobList() {
     const [jobs, setJobs] = useState([]);
 
-    const jobLinks = Object.keys(jobs).map(handle => (
-       <li key={handle}>
-           <Link to={`/jobs/${handle}`}>{handle}</Link>
-       </li>
+    useEffect(function getJobListWhenMounted() {
+        async function getJobList() {
+            let jobListResult = await JoblyApi.getJobs("baker");
+            console.log(jobListResult);
+            setJobs(jobListResult);
+
+        }
+        getJobList();
+    }, []);
+
+
+    const jobLinks = jobs.map(job => (
+        <JobCard
+            id={job.id}
+            title={job.title}
+            salary={job.salary}
+            equity={job.equity}
+        />
     ));
 
     return (
@@ -16,7 +31,7 @@ function JobList() {
             <header className="jobList-header">
                 <h1 className="jobList-title">These are jobs.</h1>
                 <h1>
-                <Link to="/jobs">Look at jobs.</Link>
+                    <Link to="/jobs">Look at jobs.</Link>
                 </h1>
             </header>
             <div className="jobList-intro">

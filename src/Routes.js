@@ -1,51 +1,54 @@
-import React, {useState, useEffect} from "react";
-import { Route, BrowserRouter, Switch, Redirect } from "react-router-dom";
-// import Homepage from "./Homepage";
- import SignupForm from "./auths/SignupForm";
-// import LoginForm from "./LoginForm";
-// import ProfileForm from "./ProfileForm";
+
+import React from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+import Homepage from "./Homepage";
 import CompanyList from "./companies/CompanyList";
-//import JobList from "./JobList";
+import JobList from "./jobs/JobList";
+import CompanyDetail from "./companies/CompanyDetail";
+import LoginForm from "./auths/LoginForm";
+import EditForm from "./auths/ProfileForm";
+import SignupForm from './auths/SignupForm';
 
-function Routes() {
 
-  const initialUser = JSON.parse(localStorage.getItem("username")) || {
+function Routes({login, signup}) {
 
-  }
-
-  const [companies, updateCompanies] = useState(initialUser)
-
-  useEffect(
-    () => localStorage.setItem()
-)
 
   return (
-    <BrowserRouter>
+    <div>
       <Switch>
-        {/* <Route exact path="/">
+
+        <Route exact path="/">
           <Homepage />
-        </Route> */}
-        {/* <Route exact path="/signup">
-          <SignupForm />
-        </Route> */}
-        {/* <Route exact path="/login">
-          <LoginForm />
-        </Route> */}
-        <Route exact path="/companies">
+        </Route>
+
+        <Route exact path="/login">
+          <LoginForm login={login} />
+        </Route>
+
+        <Route exact path="/signup">
+          <SignupForm signup={signup} />
+        </Route>
+
+        <Route exact path="/companies" >
           <CompanyList />
         </Route>
-         <Route exact path="/comapnies/:handle">
-          <CompanyList />
-        </Route>
-        {/* <Route exact path="/jobs">
+
+        <Route exact path="/jobs" >
           <JobList />
         </Route>
-        <Route exact path="/profile">
-          <ProfileForm />
-        </Route>  */}
+
+        <Route exact path="/companies/:handle" >
+          <CompanyDetail />
+        </Route>
+
+        <Route path="/profile">
+          <EditForm />
+        </Route>
+
+        <Redirect to="/" />
       </Switch>
-    </BrowserRouter>
-  )
+    </div>
+  );
 }
 
 export default Routes;

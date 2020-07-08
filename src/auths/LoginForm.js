@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-function LoginForm() {
+function LoginForm({ login }) {
   const [formData, setFormData] = useState({username:'',
                                             password:'',
                                             firstName:''
@@ -16,8 +16,9 @@ function LoginForm() {
     }));
   };
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+    await login(formData);
     history.push('/companies');
   };
 
@@ -44,6 +45,9 @@ function LoginForm() {
             onChange={handleChange}
             value={formData.password}
           />
+          </div>
+          <div>
+            <button>LOG IN</button>
           </div>
         </div>
       </form>

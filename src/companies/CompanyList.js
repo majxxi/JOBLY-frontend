@@ -5,7 +5,6 @@ import JoblyApi from '../JoblyApi';
 
 function CompanyList() {
     const [companies, setCompanies] = useState([]);
-    console.log(companies)
 
     useEffect(function getCompanyListWhenMounted() {
         async function getCompanyList() {
@@ -22,13 +21,8 @@ function CompanyList() {
         handle={company.handle}
         description={company.description}
       />
-    ))
+    ));
 
-    // const companyLinks = Object.keys(companies).map(handle => (
-    //    <li key={handle}>
-    //        <Link to={`/companies/${handle}`}>{handle}</Link>
-    //    </li>
-    // ));
 
     return (
         <div className="companyList">

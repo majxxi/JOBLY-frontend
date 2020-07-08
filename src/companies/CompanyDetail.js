@@ -20,18 +20,19 @@ function CompanyDetail({name, handle, description, history }) {
              <p>The company's named {name}. The company {description}.</p>
              <p><Link to="/companies/">Look at other companies</Link></p>
          </div>
-         <div className="jobList">
-         <header className="jobList-header">
-             <h1 className="jobList-title">These are jobs.</h1>
-             <h1>
-             <Link to="/jobs">Look at jobs.</Link>
-             </h1>
-         </header>
-         <div className="jobList-intro">
-             <p>Please select a job.</p>
-             <ul>{jobLinks}</ul>
-         </div>
-     </div>
+        //  <div className="jobList">
+        //     <header className="jobList-header">
+        //         <h1 className="jobList-title">These are jobs.</h1>
+        //         <h1>
+        //         <Link to="/jobs">Look at jobs.</Link>
+        //         </h1>
+        //     </header>
+        // </div>
+        //  <div className="jobList-intro">
+        //      <p>Please select a job.</p>
+        //      <ul>{jobLinks}</ul>
+        //  </div>
+
      )
     }
 
