@@ -7,11 +7,11 @@ function CompanyCard({name, handle, description, history }) {
     }
 
     return (
-        <div className="company">
-            <p>The company's named {name}. The company {description}.</p>
-    <p><Link to={`/company/${handle}`}>{name}</Link></p>
-        </div>
-    )
+        <div className="companies">
+          <p>The company's named {name}. The company {description}.</p>
+          <p><Link to={`/companies/${handle}`}> See more about this company. </Link></p>
+            </div >
+
 }
 
 export default CompanyCard;
