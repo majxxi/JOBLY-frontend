@@ -22,7 +22,6 @@ function App() {
     async function getUser() {
       let { username } = jwt.decode(TOKEN);
       let userResult = await JoblyApi.getUser(username);
-      console.log(userResult)
       setCurrentUser(userResult);
     };
     getUser();
@@ -30,8 +29,8 @@ function App() {
 
   async function login(data) {
     let result = await JoblyApi.login(data);
-    console.log(result);
     setToken(token);
+    return result;
   } //update localstorage too
 
 
@@ -54,7 +53,7 @@ function App() {
             <SignupForm />
           </Route>
 
-          <Route exact path="/companies" >
+          <Route exact path="/companies"  >
             <CompanyList />
           </Route>
 

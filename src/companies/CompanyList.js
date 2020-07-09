@@ -10,7 +10,6 @@ function CompanyList() {
         async function getCompanyList() {
            const companyListResult = await JoblyApi.getCompanies("and");
            setCompanies(companyListResult)
-           console.log(companyListResult);
       }
       getCompanyList();
     }, []);
