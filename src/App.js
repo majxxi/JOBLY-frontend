@@ -31,17 +31,11 @@ function App() {
   
   async function login(data) {
     let result = await JoblyApi.login(data);
-<<<<<<< HEAD
     console.debug("currentuser......", currentUser);
     // localStorage.setItem("token", result.token)
-=======
-<<<<<<< HEAD
     console.log(token)
     setToken(token);
-=======
->>>>>>> 19710d4bca5bc2b656111027b24c2cad0a8fbf21
     setToken(result);
->>>>>>> 564da461e3617ccf95586f09b9427b7bfa9c8c79
     return result;
   } //update localstorage too
 
