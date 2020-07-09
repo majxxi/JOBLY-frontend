@@ -1,13 +1,12 @@
 import axios from 'axios';
+import { TOKEN } from './App';
 const BASE_URL = 'http://localhost:3001';
 
 class JoblyApi {
   static async request(endpoint, params = {}, verb = "get") {
     console.debug("API Call:", endpoint, params, verb);
 
-    const _token = (
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaXNfYWRtaW4iOmZhbHNlLCJpYXQiOjE1OTQxNDcyNTB9.0ox0D7fo3bssdOhwmfYXxqN_Wuiys8t80hcK4fpTfYA"
-    );
+    const _token = localStorage.getItem(TOKEN);
 
     const data = (verb === "get")
       ? { params: { _token, ...params } } // GET
@@ -38,7 +37,6 @@ class JoblyApi {
 
   static async getJobs(data) {
     let res = await this.request(`jobs`, {data});
-    console.log(data);
     return res.jobs;
   }
 
@@ -49,17 +47,25 @@ class JoblyApi {
 
   static async login(data) {
     let res = await this.request("login", data, "post");
-    return res._token;
+    localStorage.setItem("token", res.token)
+    return res.token;
   }
 
   static async signup(data) {
-    let res = await this.request("signup", data, "post");
-    return res._token;
+    let res = await this.request("users", data, "post");
+    localStorage.setItem("token", res.token)
+    return res.token;
   }
 
   static async edit(data) {
     let res = await this.request("profile", data, "patch");
-    return res._token;
+    localStorage.setItem("token", res.token)
+    return res.token;
+  }
+
+  static async apply(id) {
+    let res = await this.request(`jobs/${id}/apply`, {}, "post");
+    return res.message;
   }
 
   

@@ -16,22 +16,30 @@ const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2Vy
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  const [token, setToken] =useState(TOKEN);
+  const [token, setToken] = useState("");
 
   useEffect(function getUserWhenMounted() {
     async function getUser() {
       let { username } = jwt.decode(TOKEN);
       let userResult = await JoblyApi.getUser(username);
       setCurrentUser(userResult);
+      localStorage.setItem("token", userResult._token)
     };
     getUser();
   }, [token]);
 
   async function login(data) {
     let result = await JoblyApi.login(data);
-    setToken(token);
+    setToken(result);
     return result;
   } //update localstorage too
+
+  async function signup(data) {
+    console.log("data......", data)
+    let result = await JoblyApi.signup(data);
+    setToken(result);
+    return result;
+  }
 
 
 
@@ -50,7 +58,7 @@ function App() {
           </Route>
 
           <Route exact path="/signup">
-            <SignupForm />
+            <SignupForm signup={signup}/>
           </Route>
 
           <Route exact path="/companies"  >
@@ -77,4 +85,4 @@ function App() {
   );
 }
 
-export default App;
+export {App, TOKEN};

@@ -9,21 +9,22 @@ function JobList() {
     useEffect(function getJobListWhenMounted() {
         async function getJobList() {
             let jobListResult = await JoblyApi.getJobs("baker");
-            console.log(jobListResult);
             setJobs(jobListResult);
 
         }
         getJobList();
     }, []);
 
+    
 
     const jobLinks = jobs.map(job => (
-        <JobCard
+        <div><JobCard
             id={job.id}
             title={job.title}
             salary={job.salary}
             equity={job.equity}
         />
+        </div>
     ));
 
     return (

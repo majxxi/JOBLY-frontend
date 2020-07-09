@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-function SignupForm () {
+function SignupForm ({signup}) {
   const [formData, setFormData] = useState({username:'',
                                             password:'',
-                                            firstName:'',
-                                            lastName:'',
+                                            first_name:'',
+                                            last_name:'',
                                             email:''});
   const history = useHistory();
 
@@ -16,15 +16,16 @@ function SignupForm () {
       [name]: value
     }));
   };
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
+    await signup(formData);
     history.push('/companies');
   };
 
   return (
-    <div className={SignupForm}>
+    <div className="SignupForm">
       <h1>SIGN UP</h1>
-      <form onSubmit="{handleSubmit}">
+      <form onSubmit={handleSubmit}>
         <div>
           <div>
           <label htmlFor="username">Username</label>
@@ -46,23 +47,23 @@ function SignupForm () {
           />
           </div>
           <div>
-          <label htmlFor="firstName">First Name</label>
+          <label htmlFor="first_name">First Name</label>
           <input 
-            id="firstName"
-            name="firstName"
+            id="first_name"
+            name="first_name"
             type="text"
             onChange={handleChange}
-            value={formData.firstName}
+            value={formData.first_name}
           />
           </div>
           <div>
-          <label htmlFor="lastName">Last Name</label>
+          <label htmlFor="last_name">Last Name</label>
           <input 
-            id="lastName"
-            name="lastName"
+            id="last_name"
+            name="last_name"
             type="text"
             onChange={handleChange}
-            value={formData.lastName}
+            value={formData.last_name}
           />
           </div>
           <div>
@@ -71,7 +72,7 @@ function SignupForm () {
           <input 
             id="email"
             name="email"
-            type="email"
+            type="text"
             onChange={handleChange}
             value={formData.email}
           />
