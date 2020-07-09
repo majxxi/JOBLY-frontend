@@ -10,9 +10,10 @@ import SignupForm from './auths/SignupForm';
 import UserContext from './UserContext';
 import JoblyApi from './JoblyApi';
 import jwt from "jsonwebtoken";
+const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
 //should be done with localStorage !!
-const TOKEN = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3R1c2VyIiwiaXNfYWRtaW4iOmZhbHNlLCJpYXQiOjE1OTQxNDcyNTB9.0ox0D7fo3bssdOhwmfYXxqN_Wuiys8t80hcK4fpTfYA"
+const TOKEN = localStorage.getItem("token");
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -23,19 +24,19 @@ function App() {
       let { username } = jwt.decode(TOKEN);
       let userResult = await JoblyApi.getUser(username);
       setCurrentUser(userResult);
-      localStorage.setItem("token", userResult._token)
     };
     getUser();
   }, [token]);
-
+  
   async function login(data) {
     let result = await JoblyApi.login(data);
+    console.debug("currentuser......", currentUser);
+    // localStorage.setItem("token", result.token)
     setToken(result);
     return result;
   } //update localstorage too
 
   async function signup(data) {
-    console.log("data......", data)
     let result = await JoblyApi.signup(data);
     setToken(result);
     return result;
@@ -45,7 +46,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <UserContext.Provider value={ currentUser }>
+      <UserContext.Provider value={ currentUser, setCurrentUser }>
       <div className="App">
         <Switch>
 
