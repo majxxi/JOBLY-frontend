@@ -20,8 +20,9 @@ function App() {
 
   useEffect(function getUserWhenMounted() {
     async function getUser() {
-      let { username } = jwt.decode(TOKEN);
-      let userResult = await JoblyApi.getUser(username);
+      let payload = jwt.decode(TOKEN);
+      console.log(payload)
+      let userResult = await JoblyApi.getUser(payload.username);
       setCurrentUser(userResult);
     };
     getUser();
@@ -29,6 +30,7 @@ function App() {
 
   async function login(data) {
     let result = await JoblyApi.login(data);
+    console.log(token)
     setToken(token);
     return result;
   } //update localstorage too
