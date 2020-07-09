@@ -1,17 +1,18 @@
 import React, {useState, useEffect} from "react";
 import CompanyCard from "./CompanyCard"
 import JoblyApi from '../JoblyApi';
-
+import SearchForm from '../auths/SearchForm';
 function CompanyList() {
     const [companies, setCompanies] = useState([]);
 
     useEffect(function getCompanyListWhenMounted() {
-        async function getCompanyList() {
-           const companyListResult = await JoblyApi.getCompanies("and");
-           setCompanies(companyListResult)
-      }
-      getCompanyList();
+      search();
     }, []);
+
+    async function search(term){
+        const companyListResult = await JoblyApi.getCompanies(term); //search should be here
+        setCompanies(companyListResult);
+    }
 
     const companyLinks = companies.map(company => (
       <CompanyCard 
@@ -24,10 +25,10 @@ function CompanyList() {
 
     return (
         <div className="companyList">
+            <SearchForm search={search} />
             <header className="companyList-header">
                 <h1 className="companyList-title">These are companies with jobs.</h1>
                 <h1>
-                {/* <Link to="/jobs">Look at jobs</Link> */}
                 </h1>
             </header>
             <div className="companyList-intro">

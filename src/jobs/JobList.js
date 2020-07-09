@@ -8,7 +8,7 @@ function JobList() {
 
     useEffect(function getJobListWhenMounted() {
         async function getJobList() {
-            let jobListResult = await JoblyApi.getJobs("baker");
+            let jobListResult = await JoblyApi.getJobs(); //search should be here
             setJobs(jobListResult);
 
         }

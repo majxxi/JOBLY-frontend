@@ -10,24 +10,29 @@ import SignupForm from './auths/SignupForm';
 import UserContext from './UserContext';
 import JoblyApi from './JoblyApi';
 import jwt from "jsonwebtoken";
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
 //should be done with localStorage !!
 const TOKEN = localStorage.getItem("token");
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(null);
+  const [infoLoaded, setInfoLoaded] = useState(false);
 
   useEffect(function getUserWhenMounted() {
-    async function getUser() {
-      let payload = jwt.decode(TOKEN);
-      console.log(payload)
-      let userResult = await JoblyApi.getUser(payload.username);
-      setCurrentUser(userResult);
-    };
-    getUser();
-  }, [token]);
+      async function getUser() {
+        console.log(token)
+        if(token){
+          let payload = jwt.decode(token);
+          console.log(payload)
+          let userResult = await JoblyApi.getUser(payload.username);
+          setCurrentUser(userResult);
+        }
+        setInfoLoaded(true);
+      };
+      getUser();
+    }, [token]);
+
   
   async function login(data) {
     let result = await JoblyApi.login(data);
